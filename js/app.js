@@ -98,4 +98,3 @@ centerImgElment.src= productImg.prototype.totalimg[centerImgElment].source;
 
 
 
-
