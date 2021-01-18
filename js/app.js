@@ -7,18 +7,22 @@ var rightImgElment = document.getElementById('right');
 var leftIndex;
 var centerIndex;
 var rightIndex;
+var uservotes = [];
+var userShown = [];
+var arrayIndex = [];
 var images = document.getElementById('images-div');
 productImg.prototype.totalimg = [];
 var finalResult = document.getElementById('showResult');
 var showResultButton = document.getElementById('showResultBut');
 var maxRoundForm = document.getElementById('max-rounds');
 
-function productImg(name,source) {
+function productImg(name, source) {
     this.name = name;
     this.source = source;
     this.vote = 0;
     this.shown = 0;
     productImg.prototype.totalimg.push(this);
+    arrayIndex.push(name);
 
 }
 
@@ -86,7 +90,17 @@ function userClick(event) {
         }
 
         images.removeEventListener('click', userClick);
-        showResultButton.removeAttribute(button. disabled = false);
+        showResultButton.removeAttribute(button.disabled = false);
+
+        renderChart();
+    }
+
+    function renderChart () {
+        for (var i = 0; i < productImg.prototype.totalimg.length; i++) {
+            uservotes.push(productImg.prototype.totalimg[i].vote);
+            userShown.push(productImg.prototype.totalimg[i].shown);
+        }
+        //  uservotes = chart.config.data.datasets[0].data;
 
     }
 }
@@ -97,13 +111,13 @@ function render() {
         centerIndex = createRandom();
         rightIndex = createRandom();
     }
-    while (leftIndex === rightIndex || leftIndex === centerIndex || centerIndex === rightIndex){
-    leftImgElment.src = productImg.prototype.totalimg[leftIndex].source;
-    productImg.prototype.totalimg[leftIndex].shown++;
-    centerImgElment.src = productImg.prototype.totalimg[centerIndex].source;
-    productImg.prototype.totalimg[centerIndex].shown++;
-    rightImgElment.src = productImg.prototype.totalimg[rightIndex].source;
-    productImg.prototype.totalimg[rightIndex].shown++;
+    while (leftIndex === rightIndex || leftIndex === centerIndex || centerIndex === rightIndex) {
+        leftImgElment.src = productImg.prototype.totalimg[leftIndex].source;
+        productImg.prototype.totalimg[leftIndex].shown++;
+        centerImgElment.src = productImg.prototype.totalimg[centerIndex].source;
+        productImg.prototype.totalimg[centerIndex].shown++;
+        rightImgElment.src = productImg.prototype.totalimg[rightIndex].source;
+        productImg.prototype.totalimg[rightIndex].shown++;
     }
 
 }
@@ -120,10 +134,25 @@ function showResult() {
 }
 function determineMaxRound(event) {
     event.preventDefault();
-    maxattempts=event.target.numberOfRound.value;
+    maxattempts = event.target.numberOfRound.value;
 }
 
 
 
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
 
-
+    // The data for our dataset
+    data: {
+        labels: arrayIndex,
+        datasets: [{
+            label: 'Voted and Showned Product ',
+            backgroundColor: 'rgb(229, 192, 199)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: uservotes
+        }]
+    },
+    options: {}
+});

@@ -27,21 +27,38 @@ header h1{
     font-size: 3rem;
     color: indigo;
     padding: 20px;
-    text-align: center;
     line-height: 50px;
+    position: relative;
+    left: 10px;
 }
 
-label  input{
-    margin-bottom: 10px;
+label  {
+    margin-bottom: 20px;
+    position: relative;
+    left: 10px;
+}
+input{
+    box-sizing: border-box;
+    width:300px;
+    padding: 12px 20px;
+    margin: 8px ;
+    font-family: sans-serif;
+    font-weight: bolder;
 }
 
-
-
+main h2{
+    font-size:2rem;
+    text-align: left;
+    color:black;
+    font-weight: bold;
+}
 main img {
     width: 200px;
     height: 200px;
+    padding: 50px;
+}
     
-    }
+
     #images-div{
         text-align: center;
         padding: 40px 30px;
