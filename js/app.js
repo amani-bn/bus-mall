@@ -92,17 +92,11 @@ function userClick(event) {
         images.removeEventListener('click', userClick);
         showResultButton.removeAttribute(button.disabled = false);
 
-        renderChart();
+       
     }
+    renderChart();
 
-    function renderChart () {
-        for (var i = 0; i < productImg.prototype.totalimg.length; i++) {
-            uservotes.push(productImg.prototype.totalimg[i].vote);
-            userShown.push(productImg.prototype.totalimg[i].shown);
-        }
-        //  uservotes = chart.config.data.datasets[0].data;
-
-    }
+    
 }
 
 function render() {
@@ -135,6 +129,15 @@ function showResult() {
 function determineMaxRound(event) {
     event.preventDefault();
     maxattempts = event.target.numberOfRound.value;
+}
+
+function renderChart () {
+    for (var i = 0; i < productImg.prototype.totalimg.length; i++) {
+        uservotes.push(productImg.prototype.totalimg[i].vote);
+        userShown.push(productImg.prototype.totalimg[i].shown);
+    }
+      uservotes = chart.config.data.datasets[0].data;
+
 }
 
 
