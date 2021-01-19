@@ -7,6 +7,7 @@ var rightImgElment = document.getElementById('right');
 var leftIndex;
 var centerIndex;
 var rightIndex;
+
 var uservotes = [];
 var userShown = [];
 var arrayIndex = [];
@@ -15,6 +16,7 @@ productImg.prototype.totalimg = [];
 var finalResult = document.getElementById('showResult');
 var showResultButton = document.getElementById('showResultBut');
 var maxRoundForm = document.getElementById('max-rounds');
+var ctx = document.getElementById('myChart').getContext('2d');
 
 function productImg(name, source) {
     this.name = name;
@@ -92,20 +94,23 @@ function userClick(event) {
         images.removeEventListener('click', userClick);
         showResultButton.removeAttribute(button.disabled = false);
 
-       
-    }
-    renderChart();
 
-    
+    }
+
+
 }
 
 function render() {
+    var lastLeftIndex = leftIndex;
+    var lastCenterIndex = centerIndex;
+    var lastRightIndex = rightIndex;
+
     leftIndex = createRandom();
     do {
         centerIndex = createRandom();
         rightIndex = createRandom();
     }
-    while (leftIndex === rightIndex || leftIndex === centerIndex || centerIndex === rightIndex) {
+    while (leftIndex === centerIndex || leftIndex === rightIndex ||  centerIndex === rightIndex) {
         leftImgElment.src = productImg.prototype.totalimg[leftIndex].source;
         productImg.prototype.totalimg[leftIndex].shown++;
         centerImgElment.src = productImg.prototype.totalimg[centerIndex].source;
@@ -118,6 +123,12 @@ function render() {
 
 
 function showResult() {
+    for (var i = 0; i < productImg.prototype.totalimg.length; i++) {
+            uservotes.push(productImg.prototype.totalimg[i].vote);
+            userShown.push(productImg.prototype.totalimg[i].shown);
+         }
+
+
     var productResult;
     for (var i = 0; i < productImg.prototype.totalimg.length; i++) {
         productResult = document.createElement('li');
@@ -125,37 +136,47 @@ function showResult() {
         finalResult.appendChild(productResult);
 
     }
+    renderChart();
 }
+
 function determineMaxRound(event) {
     event.preventDefault();
     maxattempts = event.target.numberOfRound.value;
 }
 
-function renderChart () {
-    for (var i = 0; i < productImg.prototype.totalimg.length; i++) {
-        uservotes.push(productImg.prototype.totalimg[i].vote);
-        userShown.push(productImg.prototype.totalimg[i].shown);
-    }
-      uservotes = chart.config.data.datasets[0].data;
+function renderChart() {
 
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: arrayIndex,
+            datasets: [{
+                label: 'Voted  Product ',
+                backgroundColor: 'rgb(229, 192, 199)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: uservotes,
+            },
+            {
+                label: ' Showed Product ',
+                backgroundColor: 'rgb(176, 166, 174)',
+                borderColor: 'rgb(176, 166, 174)',
+                data: userShown,
+            }
+            
+
+
+
+            ]
+        },
+        options: {}
+    });
+
+    
 }
 
 
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'bar',
 
-    // The data for our dataset
-    data: {
-        labels: arrayIndex,
-        datasets: [{
-            label: 'Voted and Showned Product ',
-            backgroundColor: 'rgb(229, 192, 199)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: uservotes
-        }]
-    },
-    options: {}
-});
