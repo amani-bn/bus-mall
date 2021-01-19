@@ -110,14 +110,23 @@ function render() {
         centerIndex = createRandom();
         rightIndex = createRandom();
     }
-    while (leftIndex === centerIndex || leftIndex === rightIndex ||  centerIndex === rightIndex) {
+    while (leftIndex === centerIndex || leftIndex === rightIndex ||  centerIndex === rightIndex) 
+
+     do{
+        leftIndex = createRandom();
+        centerIndex = createRandom();
+        rightIndex = createRandom();
+     }
+    while (leftIndex === centerIndex || leftIndex === rightIndex || centerIndex === rightIndex || leftIndex === lastLeftIndex || leftIndex === lastCenterIndex || leftIndex === lastRightIndex || centerIndex === lastLeftIndex || centerIndex === lastCenterIndex || centerIndex === lastRightIndex || rightIndex === lastLeftIndex || rightIndex === lastCenterIndex || rightIndex === lastRightIndex )
+
+
         leftImgElment.src = productImg.prototype.totalimg[leftIndex].source;
         productImg.prototype.totalimg[leftIndex].shown++;
         centerImgElment.src = productImg.prototype.totalimg[centerIndex].source;
         productImg.prototype.totalimg[centerIndex].shown++;
         rightImgElment.src = productImg.prototype.totalimg[rightIndex].source;
         productImg.prototype.totalimg[rightIndex].shown++;
-    }
+    
 
 }
 
