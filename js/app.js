@@ -87,7 +87,7 @@ function userClick(event) {
         for (var i = 0; i < productImg.prototype.totalimg.length; i++) {
             productResult = document.createElement('li');
             productResult.textContent = productImg.prototype.totalimg[i].name + 'had' + productImg.prototype.totalimg[i].vote + 'votes,and was seen ' + productImg.prototype.totalimg[i].shown + ' times .';
-            showRwsult.appendChild(productResult);
+            showResult.appendChild(productResult);
 
         }
 
@@ -96,7 +96,7 @@ function userClick(event) {
 
 
     }
-
+saveData();
 
 }
 
@@ -132,6 +132,7 @@ function render() {
 
 
 function showResult() {
+    getData();
     for (var i = 0; i < productImg.prototype.totalimg.length; i++) {
             uservotes.push(productImg.prototype.totalimg[i].vote);
             userShown.push(productImg.prototype.totalimg[i].shown);
@@ -185,7 +186,19 @@ function renderChart() {
 
     
 }
+var setDatafromjs = [];
+function saveData(){
+          setDatafromjs=JSON.stringify(productImg.prototype.totalimg);
+          localStorage.setItem('totalImg',setDatafromjs);
 
+}
+function getData(){
+    var imgfromls = localStorage.getItem('totalImg');
+    var imgjs = JSON.parse(imgfromls);
 
+    if (imgjs !== null){
+        productImg.prototype.totalimg = imgjs;
+         setDatafromjs = imgjs;
 
-
+    }
+}
