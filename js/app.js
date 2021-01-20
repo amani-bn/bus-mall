@@ -186,6 +186,7 @@ function renderChart() {
 
     
 }
+
 var setDatafromjs = [];
 function saveData(){
           setDatafromjs=JSON.stringify(productImg.prototype.totalimg);
