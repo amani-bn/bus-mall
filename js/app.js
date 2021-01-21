@@ -1,4 +1,5 @@
 'use strict';
+// at the begining define global arrays and variables 
 var maxattempts = 25;
 var userVote = 0;
 var leftImgElment = document.getElementById('left');
@@ -18,7 +19,7 @@ var showResultButton = document.getElementById('showResultBut');
 var maxRoundForm = document.getElementById('max-rounds');
 var ctx = document.getElementById('myChart').getContext('2d');
 
-function productImg(name, source) {
+function productImg(name, source) {        // create the constructor
     this.name = name;
     this.source = source;
     this.vote = 0;
@@ -28,7 +29,7 @@ function productImg(name, source) {
 
 }
 
-new productImg('bag.jpg', 'img/bag.jpg');
+new productImg('bag.jpg', 'img/bag.jpg');          // here create objects 
 new productImg('banana.jpg', 'img/banana.jpg');
 new productImg('bathroom.jpg', 'img/bathroom.jpg');
 new productImg('boots.jpg', 'img/boots.jpg');
@@ -51,15 +52,15 @@ new productImg('wine-glass.jpg', 'img/wine-glass.jpg');
 
 
 
-function createRandom() {
+function createRandom() { // function to create random 
     return Math.floor(Math.random() * (productImg.prototype.totalimg.length));
 }
 
-render();
+render();      // calling render function
 
-images.addEventListener('click', userClick);
-showResultButton.addEventListener('click', showResult);
-maxRoundForm.addEventListener('submit', determineMaxRound);
+images.addEventListener('click', userClick);      // add event listner on click when user click on img
+showResultButton.addEventListener('click', showResult);      // add event listner to show result
+maxRoundForm.addEventListener('submit', determineMaxRound);  // add event listner to submit when user determine number ofround
 
 
 function userClick(event) {
@@ -100,7 +101,7 @@ saveData();
 
 }
 
-function render() {
+function render() {       
     var lastLeftIndex = leftIndex;
     var lastCenterIndex = centerIndex;
     var lastRightIndex = rightIndex;
@@ -131,7 +132,7 @@ function render() {
 }
 
 
-function showResult() {
+function showResult() {          // function to show result on a list 
     getData();
     for (var i = 0; i < productImg.prototype.totalimg.length; i++) {
             uservotes.push(productImg.prototype.totalimg[i].vote);
@@ -146,15 +147,15 @@ function showResult() {
         finalResult.appendChild(productResult);
 
     }
-    renderChart();
+    renderChart();      // call renderchart function
 }
 
-function determineMaxRound(event) {
+function determineMaxRound(event) {     // function to make user determine number of round
     event.preventDefault();
     maxattempts = event.target.numberOfRound.value;
 }
 
-function renderChart() {
+function renderChart() {       // function to render chart after show result
 
     var chart = new Chart(ctx, {
         // The type of chart we want to create
@@ -187,12 +188,12 @@ function renderChart() {
     
 }
 var setDatafromjs = [];
-function saveData(){
+function saveData(){            // function to set data in  local storage
           setDatafromjs=JSON.stringify(productImg.prototype.totalimg);
           localStorage.setItem('totalImg',setDatafromjs);
 
 }
-function getData(){
+function getData(){              // function to get data from local storage
     var imgfromls = localStorage.getItem('totalImg');
     var imgjs = JSON.parse(imgfromls);
 
